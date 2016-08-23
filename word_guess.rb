@@ -6,18 +6,10 @@ class WordGuess
     @debug = debug
 
     # possible words, selected at random
-    @words = []
-      CSV.open("words.csv", 'r').each do |line, words|
-          puts "mode is #{line[0]}"
-          @words << words
+    @words = {}
+      CSV.read("words.csv").each do |line|
+        @words[line[0]] = line[1..line.length-1]
       end
-      # "e" => %w(dog cat bug hat cap lit kin fan fin fun tan ten tin ton),
-      # "m" => %w(plain claim brine crime alive bride skine drive slime stein jumpy),
-      # "h" => %w(
-      #     machiavellian prestidigitation plenipotentiary quattuordecillion
-      #     magnanimous unencumbered bioluminescent circumlocution
-      #   )
-
 
     # players attempts allowed by difficulty
     @tries = {
